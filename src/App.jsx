@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
+import useProducts from './utils/use-products';
 
 function App() {
 	const [cart, setCart] = useState([]);
+	const fetched = useProducts();
 
 	return (
 		<div className=''>
 			<Header />
-			<Outlet context={{ cart, addProduct, removeProduct }} />
+			<Outlet context={{ fetched, cart, addProduct, removeProduct }} />
 		</div>
 	);
 

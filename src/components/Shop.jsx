@@ -1,17 +1,17 @@
-import useProducts from '../utils/use-products';
+import { useOutletContext } from 'react-router-dom';
 import ProductCard from './ProductCard';
 
 function Shop() {
-	const { products, error, loading } = useProducts();
+	const { fetched } = useOutletContext();
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Network error while loading data...</p>;
+	if (fetched.loading) return <p>Loading...</p>;
+	if (fetched.error) return <p>Network error while loading data...</p>;
 
 	return (
 		<div>
 			<h2>Shop</h2>
 			<article>
-				{products.map(product => {
+				{fetched.products.map(product => {
 					return (
 						<ProductCard
 							key={product.id}
