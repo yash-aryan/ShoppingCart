@@ -3,12 +3,12 @@ import { useOutletContext } from 'react-router-dom';
 
 function ProductCard({ id, title, price }) {
 	const { cart, addProduct, removeProduct } = useOutletContext();
-	const product = cart.find(e => e.id === id) ?? { id, count: 0};
+	const product = cart.find(e => e.id === id) ?? { id, count: 0 };
 
 	return (
 		<article>
-			<h3>{title}</h3>
-			<span>{price}</span>
+			<h3 aria-label='Product Name'>{title}</h3>
+			<span data-testid='price'>{price}</span>
 			<Counter count={product.count} onClickAdd={onClickAdd} onClickRemove={onClickRemove} />
 		</article>
 	);
@@ -33,8 +33,10 @@ function Counter({ count, onClickAdd, onClickRemove }) {
 			<button type='button' onClick={onClickAdd}>
 				Add
 			</button>
-			<span>{count}</span>
-			<button type='button' onClick={onClickRemove}>
+			<span role='status' aria-live='polite'>
+				{count}
+			</span>
+			<button type='button' onClick={onClickRemove} disabled={count ? '' : 'disabled'}>
 				Remove
 			</button>
 		</div>
